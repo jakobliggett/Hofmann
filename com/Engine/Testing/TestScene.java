@@ -16,16 +16,28 @@ public class TestScene {
                 -0.5f, -0.5f, 0.0f,
                 0.5f, -0.5f, 0.0f
         };
-
         int[] triangle_indis = {
           0, 1, 2
+        };
+
+
+        float[] square_verts = {
+                0.5f,  0.5f, 0.0f,  // top right
+                0.5f, -0.5f, 0.0f,  // bottom right
+                -0.5f, -0.5f, 0.0f,  // bottom left
+                -0.5f,  0.5f, 0.0f   // top left
+        };
+        int[] square_indis = {
+                0, 1, 3,   // first triangle
+                1, 2, 3    // second triangle
         };
 
         ModelLoader loader = new ModelLoader();
 
         RawModel triangleOBJ = loader.dataToRawModel(triangle_verts, triangle_indis);
-        System.out.println("Created triangle obj");
-        RawModel[] scene = {triangleOBJ};
+        RawModel squareOBJ = loader.dataToRawModel(square_verts, square_indis);
+        System.out.println("Created obj");
+        RawModel[] scene = {squareOBJ};
 
 
         System.out.println("Finished init");

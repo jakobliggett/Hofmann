@@ -45,9 +45,9 @@ public class Renderer {
             //System.out.println("Attempting to draw");
             GL30.glBindVertexArray(model.getVAO());
             GL20.glUseProgram(model.getShaderProgram());
-
-            glDrawArrays(GL_TRIANGLES, 0, 3);
-            //glDrawElements(GL_TRIANGLES, model.getIndices(), GL_UNSIGNED_INT, 0);
+            //System.out.println("Verts: "+model.getVertices() + " Indis: "+model.getIndices());
+            //glDrawArrays(GL_TRIANGLES, 0, model.getIndices());
+            glDrawElements(GL_TRIANGLES, model.getIndices(), GL_UNSIGNED_INT, 0);
 
             GL20.glUseProgram(0);
             GL30.glBindVertexArray(0);

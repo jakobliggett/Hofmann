@@ -24,10 +24,13 @@ public class ModelLoader {
         IntBuffer indices = intArrayToBuffer(indices_data);
 
         CreateVBO(vertices);
-        //CreateEBO(indices);
+        CreateEBO(indices);
+
         int ShaderProgram = ShaderLoader.loadShaderProgram();
 
         GL30.glBindVertexArray(0);
+        //System.out.print("Creating new model with stats");
+        //System.out.printf("VAO: %d, vert#: %d, ind#: %d, ShaderProg: %d \n", VAO, vertices_data.length, indices_data.length, ShaderProgram);
         return new RawModel(VAO, vertices_data.length, indices_data.length, ShaderProgram);
     }
 
@@ -46,7 +49,7 @@ public class ModelLoader {
         int EBO = GL15.glGenBuffers();
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, EBO);
         GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, data, GL15.GL_STATIC_DRAW);
-        //GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0); //NOTE: Don't unbind EBO as VAO removes ebo from itself when unbind called
+        //GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0); //NOTE: Don't unbind EBO as VAO removes ebo from itself when unbind is called
         return EBO;
     }
 
