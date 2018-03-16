@@ -15,6 +15,12 @@ import Engine.Models.RawModel;
 import Engine.Shaders.ShaderLoader;
 
 public class ModelLoader {
+    private final int FLOAT_SIZE = 4; //Size of float in bytes, used for calculating what is position data and what is color data
+
+    private final int ATTRIBUTE_ID_VERTICIES = 0;
+    private final int ATTRIBUTE_ID_COLOR = 1;
+    private final int ATTRIBUTE_ID_TEXTURE = 2;
+
     public RawModel dataToRawModel(float[] vertices_data, int[] indices_data) {
 
         int VAO = GL30.glGenVertexArrays();
@@ -35,11 +41,15 @@ public class ModelLoader {
     }
 
     private int CreateVBO(FloatBuffer data) {
+        //As of now location data is stored in attrib array 0 and color is stored in 1
         int VBO = GL15.glGenBuffers();
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, VBO);
         GL15.glBufferData(GL15.GL_ARRAY_BUFFER, data, GL15.GL_STATIC_DRAW);
-        GL20.glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
-        GL20.glEnableVertexAttribArray(0);
+
+        GL20.glVertexAttribPointer(ATTRIBUTE_ID_VERTICIES, 3, GL_FLOAT, false, 6*FLOAT_SIZE, 0);
+        GL20.glEnableVertexAttribArray(ATTRIBUTE_ID_VERTICIES);
+        GL20.glVertexAttribPointer(ATTRIBUTE_ID_COLOR, 3, GL_FLOAT, false, 6*FLOAT_SIZE, 3*FLOAT_SIZE);
+        GL20.glEnableVertexAttribArray(ATTRIBUTE_ID_COLOR);
 
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
         return VBO;

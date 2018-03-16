@@ -61,7 +61,6 @@ public class Renderer {
             DrawModels(scene);
 
             glfwSwapBuffers(window);
-
             glfwPollEvents();
         }
         glfwTerminate();
